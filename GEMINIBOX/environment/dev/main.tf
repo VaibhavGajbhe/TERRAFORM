@@ -4,7 +4,7 @@ variable "vm-details" {}
 # variable "nic-details" {}
 variable "nsg-details" {}
 variable "stg-details" {}
-# variable "keyvault-details" {}
+variable "keyvault-details" {}
 variable "bashion-details" {}
 
 module "rg-module" {
@@ -28,15 +28,22 @@ module "stg-acc-module" {
   source     = "../../modules/storage_account"
   stg-var    = var.stg-details
 }
+
 module "vm-module" {
   depends_on = [module.rg-module, module.vnet-module]
   source     = "../../modules/vertual_machine"
   vm-var     = var.vm-details
-  
+
 }
 module "bashion-module" {
-  depends_on = [ var.rg-details ,var.vnet-details ]
-  source = "../../modules/bastion_subnet"
+  depends_on  = [var.rg-details, var.vnet-details]
+  source      = "../../modules/bastion_subnet"
   bashion-var = var.bashion-details
 
+}
+
+module "keyvault-modeule" {
+  depends_on   = [module.rg-module]
+  source       = "../../modules/key_vault"
+  keyvault-var = var.keyvault-details
 }
