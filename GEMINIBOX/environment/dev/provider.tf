@@ -1,36 +1,22 @@
-# terraform {
-#   required_providers {
-#     azurerm = {
-#       # source  = "hashicorp/azurerm"
-#       # version = "4.3.0"
-#     }
-#   }
-# }
-
-# provider "azurerm" {
-#   features {
-#     # key_vault {
-#     #   purge_soft_delete_on_destroy    = true
-#     #   recover_soft_deleted_key_vaults = true
-#     # }
-#   }
-#   subscription_id = "35b8656f-c121-4787-97b7-ea9d0892e5e9"
-# }
-
 
 
 terraform {
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "4.3.0"
+      version = "4.13.0"
     }
+  }
+  backend "azurerm" {
+    resource_group_name  = "vg-rg" 
+    storage_account_name = "pipestgacc001"                     
+    container_name       = "statfilecontainer"                      
+    key                  = "dev.terraform.tfstate"       
+    use_azuread_auth     = true                           
   }
 }
 
 provider "azurerm" {
   features {}
-  
-  subscription_id = "35b8656f-c121-4787-97b7-ea9d0892e5e9"
-
+  subscription_id = "1c7c7357-6d0d-4bd4-9401-0ecbf555933d"
 }

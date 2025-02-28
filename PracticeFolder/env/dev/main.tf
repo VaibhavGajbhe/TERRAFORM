@@ -13,3 +13,6 @@ module "create_stg" {
   source    = "../../storage_account"
   stg_value = var.stgValue
 }
+module "create_vnet" {
+  source = "../../vertual_network"
+}

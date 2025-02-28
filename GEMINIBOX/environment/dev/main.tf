@@ -6,7 +6,7 @@ variable "nsg-details" {}
 variable "stg-details" {}
 variable "keyvault-details" {}
 variable "bashion-details" {}
-variable "loadbalancer-details" {}
+# variable "loadbalancer-details" {}
 
 module "rg-module" {
   source = "../../modules/resource_group"
@@ -49,8 +49,8 @@ module "keyvault-modeule" {
   keyvault-var = var.keyvault-details
 }
 
-module "loadbalancer-module" {
-  depends_on = [var.rg-details]
-  source     = "../../modules/load_balancer"
-  lb-var     = var.loadbalancer-details
-}
+# module "loadbalancer-module" {
+#   depends_on = [var.rg-details]
+#   source     = "../../modules/load_balancer"
+#   lb-var     = var.loadbalancer-details
+# }
